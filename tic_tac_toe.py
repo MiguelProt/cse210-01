@@ -14,6 +14,8 @@
 def main():
     grid = create_grid()
     show_board_status(grid)
+    win = winner(grid)
+    print(win)
     pass
 
 def create_grid():
@@ -33,6 +35,25 @@ def show_board_status(grid):
             print('\n- + - + -')
         else: print()
     pass 
+
+def winner(board):
+    if (
+        #horizontal
+        board[0] == board[1] == board[2] or
+        board[3] is board[4] is board[5] or
+        board[6] is board[7] is board[8] or
+        #vertical
+        board[0] is board[3] is board[6] or
+        board[0] is board[1] is board[2] or
+        board[0] is board[1] is board[2] or
+        #diagonal
+        board[0] is board[1] is board[2] or
+        board[0] is board[1] is board[2]
+        ):
+        return True
+    else:
+        return False
+    pass
 
 if __name__ == "__main__":
     main()
