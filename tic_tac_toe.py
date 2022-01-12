@@ -25,13 +25,13 @@ def create_grid():
     return grid
 
 def show_board_status(grid):
-    for element in grid:
+    for index, element in enumerate(grid):
         print(element, end=""),
-        if (element == 1 or element == 2 
-        or element == 4 or element == 5 
-        or element == 7 or element == 8):
+        if (index == 0 or index == 1 
+        or index == 3 or index == 4 
+        or index == 6 or index == 7):
             print(' | ', end="")
-        elif (element == 3 or element == 6 ):
+        elif (index == 2 or index == 5 ):
             print('\n- + - + -')
         else: print()
     pass 
