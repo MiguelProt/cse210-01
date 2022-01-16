@@ -12,10 +12,29 @@
 """
 
 def main():
+    turn = who_is_playing("")
     grid = create_grid()
-    show_board_status(grid)
-    win = winner(grid)
-    print(win)
+    win = False
+    draw = False
+    while not ( win or draw ):
+        show_board_status(grid)
+        ask_to_user(turn, grid)
+        win = winner(grid)
+        draw = is_draw(grid)
+        turn = who_is_playing(turn)
+        
+    if win:
+        print("Good game. Thanks for playing!")
+    if draw:
+        print("Looks like you both have the same level.")
+        print("Good game. Thanks for playing!")
+    
+    pass
+
+def ask_to_user(turn, grid):
+    choise = int(input(f"{turn}'s turn to choose a square (1-9): "))
+    index = choise - 1
+    grid[index] = turn
     pass
 
 def create_grid():
@@ -34,26 +53,41 @@ def show_board_status(grid):
         elif (index == 2 or index == 5 ):
             print('\n- + - + -')
         else: print()
-    pass 
+    print()
 
 def winner(board):
-    if (
-        #horizontal
-        board[0] == board[1] == board[2] or
-        board[3] is board[4] is board[5] or
-        board[6] is board[7] is board[8] or
-        #vertical
-        board[0] is board[3] is board[6] or
-        board[0] is board[1] is board[2] or
-        board[0] is board[1] is board[2] or
-        #diagonal
-        board[0] is board[1] is board[2] or
-        board[0] is board[1] is board[2]
-        ):
+    if ( board[0] is board[1] is board[2] or board[0] is board[3] is board[6] or board[0] is board[4] is board[8] ):
+        print(f"The winner is {board[0]}!!")
+        return True
+    elif ( board[3] is board[4] is board[5] ):
+        print(f"The winner is {board[3]}!!")
+        return True
+    elif ( board[6] is board[7] is board[8] or board[2] is board[4] is board[6] ):
+        print(f"The winner is {board[6]}!!")
+        return True
+    elif (board[1] is board[4] is board[7]):
+        print(f"The winner is{board[0]}!!")
+        return True
+    elif (board[2] is board[5] is board[8]):
+        print(f"The winner is{board[0]}!!")
         return True
     else:
         return False
-    pass
+
+def is_draw(grid):
+    for index in range(9):
+        if grid[index] != 'x' or grid[index] != 'o':
+            return False
+        else:
+            return True
+
+def who_is_playing(current_turn):
+    if current_turn == 'x':
+        return 'o'
+    elif current_turn == 'o':
+        return 'x'
+    else:
+        return 'x'
 
 if __name__ == "__main__":
     main()
